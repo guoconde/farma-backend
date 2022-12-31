@@ -1,0 +1,35 @@
+version: "3"
+services:
+  postgres:
+    container_name: farma-postgres
+    image: postgres:14
+    ports:
+      - "${DATABASE_PORT}:${DATABASE_PORT}"
+    environment:
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+    volumes:
+      - farma-postgres-data:/var/lib/postgresql/data
+    networks:
+      - postgres-network
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+    networks:
+      - postgres-network
+    volumes:
+      - farma-pgadmin:/var/lib/pgadmin
+volumes:
+  farma-postgres-data:
+    driver: local
+  farma-pgadmin:
+    driver: local
+networks:
+  postgres-network:
+    driver: bridge
