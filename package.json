@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "dev": "ts-node-dev --respawn --transpile-only --clear --ignore-watch node_modules --exit-child -r tsconfig-paths/register src/server.ts",
+    "dev": "yarn migrate:dev && ts-node-dev --respawn --transpile-only --clear --ignore-watch node_modules --exit-child -r tsconfig-paths/register src/server.ts",
     "start": "node dist/server.js",
     "up": "docker-compose up -d",
     "down": "docker-compose down",
@@ -36,7 +36,6 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "express-async-errors": "^3.1.1",
-    "firebase-admin": "^11.0.0",
     "jsonwebtoken": "^8.5.1",
     "module-alias": "^2.2.2",
     "multer": "^1.4.4",
