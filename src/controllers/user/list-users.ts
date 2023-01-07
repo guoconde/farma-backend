@@ -1,7 +1,6 @@
 import { inject, injectable } from "tsyringe";
 import { Request, Response } from "express";
-
-import { ListUsersUseCase } from "@/use-cases/user/list-users";
+import { ListUsersUseCase } from "@/use-cases/user";
 
 @injectable()
 export class ListUsersController {
