@@ -1,7 +1,12 @@
 import { injectable } from "tsyringe";
 
 import { prisma } from "@/database/prismaClient";
-import { CreateUserDto, ListUsersDto, UserDto } from "@/dtos";
+import {
+  CreateUserDto,
+  ListUsersDto,
+  UserDto,
+  UserWithoutPasswordDto,
+} from "@/dtos";
 
 @injectable()
 export class UserRepository {
@@ -36,7 +41,7 @@ export class UserRepository {
     return user;
   }
 
-  async findAll(input: ListUsersDto): Promise<UserDto[]> {
+  async findAll(input: ListUsersDto): Promise<UserWithoutPasswordDto[]> {
     const page = input.page!;
     const skip = (page - 1) * input.limit!;
 
@@ -48,6 +53,15 @@ export class UserRepository {
           contains: input.name,
           mode: "insensitive",
         },
+      },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        phone: true,
+        birthdate: true,
+        typeOfUser: true,
+        password: false,
       },
       skip,
       take: input.limit!,
