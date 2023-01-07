@@ -1,3 +1,5 @@
+import { PaginationFilterDto } from "./pagination";
+
 export type UserDto = {
   id: string;
   name: string;
@@ -10,3 +12,7 @@ export type UserDto = {
 };
 
 export type CreateUserDto = Omit<UserDto, "id" | "active" | "typeOfUser">;
+
+export type ListUsersDto = PaginationFilterDto<Pick<UserDto, "name">> & {
+  name?: string;
+};
