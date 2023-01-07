@@ -15,6 +15,17 @@ export class UserRepository {
     return createdUser;
   }
 
+  async count(name?: string): Promise<number> {
+    return await prisma.user.count({
+      where: {
+        name: {
+          contains: name,
+          mode: "insensitive",
+        },
+      },
+    });
+  }
+
   async findUserByEmail(email: string) {
     const user = await prisma.user.findUnique({
       where: {
