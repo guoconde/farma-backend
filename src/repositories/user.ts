@@ -4,6 +4,7 @@ import { prisma } from "@/database/prismaClient";
 import {
   CreateUserDto,
   ListUsersDto,
+  UpdateUserDto,
   UserDto,
   UserWithoutPasswordDto,
 } from "@/dtos";
@@ -41,6 +42,16 @@ export class UserRepository {
     return user;
   }
 
+  async findUserById(userId: string) {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+
+    return user;
+  }
+
   async findAll(input: ListUsersDto): Promise<UserWithoutPasswordDto[]> {
     const page = input.page!;
     const skip = (page - 1) * input.limit!;
@@ -71,5 +82,19 @@ export class UserRepository {
     });
 
     return users;
+  }
+
+  async updateUser(userId: string, input: UpdateUserDto): Promise<UserDto> {
+    const updatedUser = await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        ...input,
+        phone: input.phone.replace(/\D/g, ""),
+      },
+    });
+
+    return updatedUser;
   }
 }

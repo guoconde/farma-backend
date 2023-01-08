@@ -1,9 +1,12 @@
 import { container } from "tsyringe";
 
 import { UserRepository } from "@/repositories";
-import { CreateUserUseCase } from "@/use-cases/user";
+import {
+  CreateUserUseCase,
+  ListUsersUseCase,
+  UpdateUserUseCase,
+} from "@/use-cases/user";
 import { UserAuthUseCase } from "@/use-cases/auth/auth-user";
-import { ListUsersUseCase } from "@/use-cases/user/list-users";
 
 container.registerSingleton<UserRepository>("UserRepository", UserRepository);
 
@@ -20,4 +23,9 @@ container.registerSingleton<UserAuthUseCase>(
 container.registerSingleton<ListUsersUseCase>(
   "ListUsersUseCase",
   ListUsersUseCase
+);
+
+container.registerSingleton<UpdateUserUseCase>(
+  "UpdateUserUseCase",
+  UpdateUserUseCase
 );

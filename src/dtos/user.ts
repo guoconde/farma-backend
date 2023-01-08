@@ -13,6 +13,8 @@ export type UserDto = {
 
 export type UserWithoutPasswordDto = Omit<UserDto, "password" | "active">;
 
+export type UpdateUserDto = Omit<UserDto, "password" | "id" | "active">;
+
 export type CreateUserDto = Omit<UserDto, "id" | "active" | "typeOfUser">;
 
 export type ListUsersDto = PaginationFilterDto<Pick<UserDto, "name">> & {
