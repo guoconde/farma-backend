@@ -97,4 +97,12 @@ export class UserRepository {
 
     return updatedUser;
   }
+
+  async deleteUser(userId: string): Promise<void> {
+    await prisma.user.delete({
+      where: {
+        id: userId,
+      },
+    });
+  }
 }

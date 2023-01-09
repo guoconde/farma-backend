@@ -1,23 +1,21 @@
-import { UpdateUserDto, UserDto } from "@/dtos";
-import { UserNotFoundError } from "@/errors/user-not-found";
 import { UserRepository } from "@/repositories";
 import { inject, injectable } from "tsyringe";
 
+import { UserNotFoundError } from "@/errors/user-not-found";
+
 @injectable()
-export class UpdateUserUseCase {
+export class DeleteUserUseCase {
   constructor(
     @inject("UserRepository")
     private readonly userRepository: UserRepository
   ) {}
 
-  async execute(userId: string, input: UpdateUserDto): Promise<UserDto> {
+  async execute(userId: string): Promise<void> {
     const userExists = await this.userRepository.findUserById(userId);
     if (!userExists) {
       throw new UserNotFoundError();
     }
 
-    const updatedUser = await this.userRepository.updateUser(userId, input);
-
-    return updatedUser;
+    await this.userRepository.deleteUser(userId);
   }
 }

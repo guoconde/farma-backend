@@ -3,6 +3,7 @@ import { container } from "tsyringe";
 import { UserRepository } from "@/repositories";
 import {
   CreateUserUseCase,
+  DeleteUserUseCase,
   ListUsersUseCase,
   UpdateUserUseCase,
 } from "@/use-cases/user";
@@ -28,4 +29,9 @@ container.registerSingleton<ListUsersUseCase>(
 container.registerSingleton<UpdateUserUseCase>(
   "UpdateUserUseCase",
   UpdateUserUseCase
+);
+
+container.registerSingleton<DeleteUserUseCase>(
+  "DeleteUserUseCase",
+  DeleteUserUseCase
 );
